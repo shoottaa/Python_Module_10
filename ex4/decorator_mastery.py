@@ -18,9 +18,14 @@ def power_validator(min_power: int) -> callable:
     def decorator(func: callable) -> callable:
         @functools.wraps(func)
         def wrapper(*args, **kwargs):
-            power = (args[1] if len(args) > 1 and not isinstance(args[0], int)
-                     else args[0])
-            if power < min_power:
+            if 'power' in kwargs:
+                power = kwargs['power']
+            else:
+                power = next(
+                    (a for a in args if isinstance(a, int)),
+                    None
+                )
+            if power is None or power < min_power:
                 return "Insufficient power for this spell"
             return func(*args, **kwargs)
         return wrapper
@@ -48,7 +53,7 @@ class MageGuild:
         return len(name) >= 3 and all(c.isalpha() or c == " " for c in name)
 
     @power_validator(min_power=10)
-    def cast_spell(self, power: int, spell_name: str) -> str:
+    def cast_spell(self, spell_name: str, power: int) -> str:
         return f"Successfully cast {spell_name} with {power} power"
 
 
@@ -88,5 +93,5 @@ if __name__ == "__main__":
     print(MageGuild.validate_mage_name("Merlin"))
     print(MageGuild.validate_mage_name("X2"))
     guild = MageGuild()
-    print(guild.cast_spell(15, "Lightning"))
-    print(guild.cast_spell(5, "Lightning"))
+    print(guild.cast_spell("Lightning", 15))
+    print(guild.cast_spell("Lightning", 5))
