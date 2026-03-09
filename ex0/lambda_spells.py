@@ -13,9 +13,11 @@ def spell_transformer(spells: list[str]) -> list[str]:
 
 def mage_stats(mages: list[dict]) -> dict:
     return {
-        'max_power': max(mages, key=lambda x: x['power']),
-        'min_power': min(mages, key=lambda x: x['power']),
-        'avg_power': sum(mage['power'] for mage in mages) / len(mages)
+        'max_power': max(mages, key=lambda x: x['power'])['power'],
+        'min_power': min(mages, key=lambda x: x['power'])['power'],
+        'avg_power': round(
+            sum(mage['power'] for mage in mages) / len(mages), 2
+        )
     }
 
 
@@ -47,8 +49,6 @@ if __name__ == "__main__":
 
     print("\nTesting mage stats...")
     stats = mage_stats(mages)
-    max_mage = stats['max_power']
-    min_mage = stats['min_power']
-    print(f"Strongest: {max_mage['name']} ({max_mage['power']})")
-    print(f"Weakest: {min_mage['name']} ({min_mage['power']})")
-    print(f"Average power: {stats['avg_power']:.1f}")
+    print(f"Max power: {stats['max_power']}")
+    print(f"Min power: {stats['min_power']}")
+    print(f"Average power: {stats['avg_power']}")
