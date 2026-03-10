@@ -1,13 +1,16 @@
 def artifact_sorter(artifacts: list[dict]) -> list[dict]:
+    # sorted = tri d'iterables et retourne une liste
     return sorted(artifacts, key=lambda artifact: artifact['power'],
                   reverse=True)
 
 
 def power_filter(mages: list[dict], min_power: int) -> list[dict]:
+    # filter = filtre les elements em fonction d'une condition
     return list(filter(lambda x: x['power'] >= min_power, mages))
 
 
 def spell_transformer(spells: list[str]) -> list[str]:
+    # map = applique une fonction a tous les elements
     return list(map(lambda s: f"* {s} *", spells))
 
 
@@ -22,7 +25,7 @@ def mage_stats(mages: list[dict]) -> dict:
 
 
 if __name__ == "__main__":
-    print("\nTesting artifact sorter...")
+    print("\nTesting artifact sorter...")``
     artifacts = [
         {'name': 'Fire Staff', 'power': 92},
         {'name': 'Crystal Orb', 'power': 85}

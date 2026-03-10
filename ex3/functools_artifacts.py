@@ -9,11 +9,13 @@ def spell_reducer(spells: list[int], operation: str) -> int:
         "max": max,
         "min": min
     }
+    # reduce = accumule les elements
     return functools.reduce(operations[operation], spells)
 
 
 def partial_enchanter(base_enchantment: callable) -> dict[str, callable]:
     return {
+        # partial = pre-remplis la fonction avec les arguments fournis
         "fire_enchant": functools.partial(base_enchantment, element="fire",
                                           power=50),
         "ice_enchant": functools.partial(base_enchantment, element="ice",
